@@ -10,4 +10,6 @@ try:
 except peewee.OperationalError:
     pass
 
-app.run(debug=DEBUG, use_reloader=DEBUG)
+
+if __name__ == '__main__':
+    app.run(debug=DEBUG, use_reloader=DEBUG)
