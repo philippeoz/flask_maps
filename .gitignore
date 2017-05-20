@@ -1,0 +1,14 @@
+*.db
+*.png
+*.log
+*.pyc
+__pycache__
+.idea/*
+phantomjs
+phantomjs.exe
+chromedriver
+geckodriver
+geckodriver.exe
+chromedriver.exe
+.codeintel/*
+flask_app/media_files/*

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box">
+                <div class="box-header">
+                    <h4 class="pull-left">Mapa</h4>
+                    <div class="navbar-form navbar-right" style="display:none;" id='busca'>
+                        <div class="form-group">
+                          <div class="input-group" style="margin-right:5px;">
+                            <input class="form-control" style="min-width:250px;" id="input_busca" type="search" placeholder="Buscar">
+                            <span class="input-group-btn">
+                              <button class="btn"><span class="fui-search" onclick="codeAddress();"></span></button>
+                            </span>
+                          </div>
+                          <button id="save_btn" class="btn btn-inverse pull-right" type="button" onclick="goSave();" style="min-width:100px;">
+                            Salvar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="box-body" style="padding-left: 0px;">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="box">
+                <div class="box-header">
+                    <h4 class="pull-left">Marcadores</h4>
+                    <button class="btn btn-inverse pull-right" type="button"
+                    onclick="toAdd();" id="add_btn">
+                        Adicionar
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="box-body">
+                    <ul id="id_marcadores" style="height:450px;">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View image modal -->
+    <div class="modal fade" id="viewImageModal" tabindex="-1" role="dialog" aria-labelledby="viewImageModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title" id="viewImageModalLabel"></h5>
+                </div>
+                    <div class="modal-body">
+                        
+                        <div id="id_image_detail">
+                            <center>
+                            <img id="image_modal" src=""
+                                    class="img-responsive" width="304" height="236">
+                            </center>
+                        </div>
+                            
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var ksv = "{{ key_g_st_view }}";
+        var csrf_token = "{{ csrf_token() }}";
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ key_g_maps }}">
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <style type="text/css">
+        #map {
+            height: 450px;
+            width: 100%;
+       }
+       .spinner { right: 5px; top: 6px; width: 25px; height: 25px;}
+    </style>
+{% endblock %}
